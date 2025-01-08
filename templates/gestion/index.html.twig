@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion{% endblock %}
+
+{% block body %}
+<h1>Page de Gestion</h1>
+
+<style>
+.tabs ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    border-bottom: 2px solid #ddd;
+}
+
+.tabs ul li {
+    margin-right: 10px;
+}
+
+.tabs ul li a {
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+    color: #333;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    background-color: #f9f9f9;
+}
+
+.tabs ul li a:hover,
+.tabs ul li a.active {
+    background-color: #fff;
+    border-top: 2px solid #007bff;
+    border-left: 2px solid #ddd;
+    border-right: 2px solid #ddd;
+    border-bottom: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.tab-content {
+    display: none;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    margin-top: -1px;
+}
+
+.tab-content.active {
+    display: block;
+}
+</style>
+
+<div class="tabs">
+    <ul>
+        <li><a href="#projets" class="active">Projets</a></li>
+        <li><a href="#formations">Formations</a></li>
+        <li><a href="#experiences">Expériences</a></li>
+        <li><a href="#technologies">Technologies</a></li>
+        <li><a href="#centresInterets">Centres d'intérêts</a></li>
+
+    </ul>
+</div>
+
+<div id="projets" class="tab-content active">
+    <h2>Gérer les Projets</h2>
+    {# {{ include('gestion/partials/projets.html.twig') }} #}
+    {{ include('gestion/partials/projets.html.twig', { 
+        'projets': projets ?? [],
+        'form_projet': form_projet ?? null, 
+        'form_edit_projet': form_edit_projet ?? null,
+        'edit_projet_id': edit_projet_id ?? null
+    }) }}
+    
+</div>
+
+<div id="formations" class="tab-content">
+    <h2>Gérer les Formations</h2>
+    {{ include('gestion/partials/formations.html.twig', {
+        'formations': formations ?? [],
+        'form_formation': form_formation ?? null,
+        'form_edit_formation': form_edit_formation ?? null,
+        'edit_formation_id': edit_formation_id ?? null
+    }) }}
+</div>
+
+<div id="experiences" class="tab-content">
+    <h2>Gérer les Expériences</h2>
+    {{ include('gestion/partials/experiences.html.twig', {
+        'experiences': experiences ?? [],
+        'form_experience': form_experience ?? null,
+        'form_edit_experience': form_edit_experience ?? null,
+        'edit_experience_id': edit_experience_id ?? null
+    }) }}
+</div>
+
+<div id="technologies" class="tab-content">
+    <h2>Gérer les Technologies</h2>
+    {{ include('gestion/partials/technologies.html.twig', {
+        'technologies': technologies ?? [],
+        'form_technologie': form_technologie ?? null,
+        'form_edit_technologie': form_edit_technologie ?? null,
+        'edit_technologie_id': edit_technologie_id ?? null
+    }) }}
+</div>
+
+<div id="centresInterets" class="tab-content">
+    <h2>Gérer les Centres d'intérêts</h2>
+    {{ include('gestion/partials/centresInterets.html.twig', {
+        'centresInterets': centresInterets ?? [],
+        'form_centreInteret': form_centreInteret ?? null,
+        'form_edit_centreInteret': form_edit_centreInteret ?? null,
+        'edit_centreInteret_id': edit_centreInteret_id ?? null
+    }) }}
+</div>
+
+<script>
+document.querySelectorAll('.tabs ul li a').forEach(tab => {
+    tab.addEventListener('click', e => {
+        e.preventDefault();
+
+        // Désactiver tous les onglets et contenus
+        document.querySelectorAll('.tabs ul li a').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+        // Activer l'onglet et le contenu sélectionnés
+        tab.classList.add('active');
+        document.querySelector(tab.getAttribute('href')).classList.add('active');
+    });
+});
+</script>
+{% endblock %}

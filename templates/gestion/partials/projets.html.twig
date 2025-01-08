@@ -1,0 +1,33 @@
+<h3>Ajouter un Projet</h3>
+{% if not edit_projet_id %}
+    {{ form_start(form_projet) }}
+    {{ form_widget(form_projet) }}
+    <button type="submit">Ajouter</button>
+    {{ form_end(form_projet) }}
+{% endif %}
+
+<h3>Liste des Projets</h3>
+<ul>
+    {% for projet in projets %}
+        <li>
+            {{ projet.titre }} - {{ projet.description }}
+            
+            {% if projet.id == edit_projet_id %}
+                {% if form_edit_projet is not null %}
+                    {{ form_start(form_edit_projet) }}
+                    {{ form_widget(form_edit_projet) }}
+                    <button type="submit">Enregistrer</button>
+                    {# Bouton Annuler pour revenir à la liste sans enregistrer #}
+                    <a href="{{ path('app_gestion') }}" class="btn btn-secondary">Annuler</a>
+                    {{ form_end(form_edit_projet) }}
+                {% else %}
+                    <p>Formulaire d'édition introuvable.</p>
+                {% endif %}
+            {% else %}
+                <a href="{{ path('app_projet_edit', {id: projet.id}) }}">Modifier</a>
+            {% endif %}
+            
+            <a href="{{ path('app_projet_delete', {id: projet.id}) }}" onclick="return confirm('Supprimer ce projet ?');">Supprimer</a>
+        </li>
+    {% endfor %}
+</ul>

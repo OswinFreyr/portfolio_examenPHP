@@ -1,0 +1,33 @@
+<h3>Ajouter un centre d'intérêt</h3>
+{% if not edit_centreInteret_id %}
+    {{ form_start(form_centreInteret) }}
+    {{ form_widget(form_centreInteret) }}
+    <button type="submit">Ajouter</button>
+    {{ form_end(form_centreInteret) }}
+{% endif %}
+
+<h3>Liste des Intérêts</h3>
+<ul>
+    {% for centreInteret in centresInterets %}
+        <li>
+            {{ centreInteret.nom }} 
+            
+            {% if centreInteret.id == edit_centreInteret_id %}
+                {% if form_edit_centreInteret is not null %}
+                    {{ form_start(form_edit_centreInteret) }}
+                    {{ form_widget(form_edit_centreInteret) }}
+                    <button type="submit">Enregistrer</button>
+                    {# Bouton Annuler pour revenir à la liste sans enregistrer #}
+                    <a href="{{ path('app_gestion') }}" class="btn btn-secondary">Annuler</a>
+                    {{ form_end(form_edit_centreInteret) }}
+                {% else %}
+                    <p>Formulaire d'édition introuvable.</p>
+                {% endif %}
+            {% else %}
+                <a href="{{ path('app_centreInteret_edit', {id: centreInteret.id}) }}">Modifier</a>
+            {% endif %}
+
+            <a href="{{ path('app_centreInteret_delete', {id: centreInteret.id}) }}" onclick="return confirm('Supprimer cette centreInteret ?');">Supprimer</a>
+        </li>
+    {% endfor %}
+</ul>

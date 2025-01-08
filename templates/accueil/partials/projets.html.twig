@@ -1,0 +1,16 @@
+<ul>
+    {% for projet in projets %}
+        <li>
+            <h3>{{ projet.titre }}</h3>
+            <p>{{ projet.description }}</p>
+            <p>{{ projet.lien }}</p>
+            
+            <h4>Technologies utilisées</h4>
+            <ul>
+                {% for technologie in projet.technologies %}
+                    <li>{{ technologie.nom }}</li> 
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+</ul>

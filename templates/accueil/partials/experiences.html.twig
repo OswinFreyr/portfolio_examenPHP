@@ -1,0 +1,10 @@
+<ul>
+    {% for experience in experiences %}
+        <li>
+            <h3>{{ experience.poste }}</h3>
+            <p>{{ experience.entreprise }}</p>
+            <p>Date de début : {{ experience.dateDebut|date('l, d F Y') }}</p>
+            <p>Date de fin : {{ experience.dateFin|date('l, d F Y') }}</p>
+        </li>
+    {% endfor %}
+</ul>

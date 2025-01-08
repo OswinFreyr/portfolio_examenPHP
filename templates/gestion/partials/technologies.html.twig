@@ -1,0 +1,33 @@
+<h3>Ajouter une Technologie</h3>
+{% if not edit_technologie_id %}
+    {{ form_start(form_technologie) }}
+    {{ form_widget(form_technologie) }}
+    <button type="submit">Ajouter</button>
+    {{ form_end(form_technologie) }}
+{% endif %}
+
+<h3>Liste des Technologies</h3>
+<ul>
+    {% for technologie in technologies %}
+        <li>
+            {{ technologie.nom }} 
+            
+            {% if technologie.id == edit_technologie_id %}
+                {% if form_edit_technologie is not null %}
+                    {{ form_start(form_edit_technologie) }}
+                    {{ form_widget(form_edit_technologie) }}
+                    <button type="submit">Enregistrer</button>
+                    {# Bouton Annuler pour revenir à la liste sans enregistrer #}
+                    <a href="{{ path('app_gestion') }}" class="btn btn-secondary">Annuler</a>
+                    {{ form_end(form_edit_technologie) }}
+                {% else %}
+                    <p>Formulaire d'édition introuvable.</p>
+                {% endif %}
+            {% else %}
+                <a href="{{ path('app_technologie_edit', {id: technologie.id}) }}">Modifier</a>
+            {% endif %}
+
+            <a href="{{ path('app_technologie_delete', {id: technologie.id}) }}" onclick="return confirm('Supprimer cette technologie ?');">Supprimer</a>
+        </li>
+    {% endfor %}
+</ul>

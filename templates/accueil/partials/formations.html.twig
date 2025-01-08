@@ -1,0 +1,10 @@
+<ul>
+    {% for formation in formations %}
+        <li>
+            <h3>{{ formation.diplome }}</h3>
+            <p>{{ formation.etablissement }}</p>
+            <p>Date de début : {{ formation.dateDebut|date('l, d F Y') }}</p>
+            <p>Date de fin : {{ formation.dateFin|date('l, d F Y') }}</p>
+        </li>
+    {% endfor %}
+</ul>
