@@ -54,7 +54,8 @@ class CentreInteretController extends AbstractController
         FormationRepository $formationRepository,
         ExperienceRepository $experienceRepository,
         TechnologieRepository $technologieRepository,
-        CentreInteretRepository $centreInteretRepository
+        CentreInteretRepository $centreInteretRepository,
+        int $id
     ): Response
     {
         $form = $this->createForm(CentreInteretType::class, $centreInteret);
@@ -71,6 +72,7 @@ class CentreInteretController extends AbstractController
         $experiences = $experienceRepository->findAll();
         $technologies = $technologieRepository->findAll();
         $centresInterets = $centreInteretRepository->findAll();
+        $edit_centreInteret_id = $id;
 
         return $this->render('gestion/index.html.twig', [
             'form_projet' => $form->createView(),
@@ -83,7 +85,8 @@ class CentreInteretController extends AbstractController
             'formations' => $formations,
             'experiences' => $experiences,
             'technologies' => $technologies,
-            'centresInterets' => $centresInterets
+            'centresInterets' => $centresInterets,
+            'edit_centreInteret_id' => $edit_centreInteret_id
         ]);
     }
 

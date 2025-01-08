@@ -65,7 +65,6 @@
 
 <div id="projets" class="tab-content active">
     <h2>Gérer les Projets</h2>
-    {# {{ include('gestion/partials/projets.html.twig') }} #}
     {{ include('gestion/partials/projets.html.twig', { 
         'projets': projets ?? [],
         'form_projet': form_projet ?? null, 
@@ -128,6 +127,7 @@ document.querySelectorAll('.tabs ul li a').forEach(tab => {
         tab.classList.add('active');
         document.querySelector(tab.getAttribute('href')).classList.add('active');
     });
+    
 });
 </script>
 {% endblock %}
