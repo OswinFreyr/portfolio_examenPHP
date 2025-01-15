@@ -25,15 +25,16 @@ class Profil
     #[ORM\Column(type: 'json')]
     private array $roles = [];
 
-    public function setRoles($roles): array{
+    public function setRoles($roles): void{
         $this->roles = $roles;
+        array_push($this->roles, 'ROLE_ADMIN');
     }
 
     public function getRoles(): mixed
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        // $roles[] = 'ROLE_USER';
         return array_unique($roles);
     }
 
