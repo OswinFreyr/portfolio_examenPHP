@@ -22,6 +22,21 @@ class Profil
     #[ORM\JoinColumn(nullable: false)]
     private $utilisateur;
 
+    #[ORM\Column(type: 'json')]
+    private array $roles = [];
+
+    public function setRoles($roles): array{
+        $this->roles = $roles;
+    }
+
+    public function getRoles(): mixed
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+        return array_unique($roles);
+    }
+
     public function getId(): ?int
     {
         return $this->id;

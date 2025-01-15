@@ -35,6 +35,13 @@ class GestionController extends AbstractController
         TechnologieRepository $technologieRepository,
         CentreInteretRepository $centreInteretRepository
     ): Response {
+
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        // or add an optional message - seen by developers
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
+
+
         $projet = new Projet();
         $formProjet = $this->createForm(ProjetType::class, $projet);
         $formProjet->handleRequest($request);
