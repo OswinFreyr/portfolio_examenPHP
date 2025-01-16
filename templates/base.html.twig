@@ -14,7 +14,6 @@
             justify-content: space-between;
             align-items: center;
             padding: 10px;
-            /* background-color: #333; */
         }
 
         nav ul {
@@ -38,6 +37,11 @@
             text-decoration: underline;
         }
 
+        /* Style pour l'icône à droite */
+        .auth-icon {
+            margin-left: auto;
+        }
+
         /* Ajout des icônes avant le texte des liens */
         
     </style>
@@ -46,8 +50,19 @@
     <header>
         <nav>
             <ul>
-                <li><a href="{{ path('app_accueil') }}"><i class="fas fa-home"></i></a></li>
-                <li><a href="{{ path('app_gestion') }}"><i class="fas fa-cogs"></i></a></li>
+                <li><a href="{{ path('app_accueil') }}" title="Accueil"><i class="fas fa-home"></i></a></li>
+                {# <li><a href="{{ path('app_gestion') }}"><i class="fas fa-cogs"></i></a></li> #}
+                {% if app.user %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <!-- Admin-specific icon -->
+                        <li><a href="{{ path('app_gestion') }}" title="Admin Dashboard"><i class="fas fa-cogs"></i></a></li>
+                    {% endif %}
+                    <!-- Log out icon -->
+                    <li><a href="{{ path('app_logout') }}" title="Log out"><i class="fas fa-sign-out-alt"></i></a></li>
+                {% else %}
+                    <!-- Log in icon -->
+                    <li><a href="{{ path('app_login') }}" title="Log in"><i class="fas fa-sign-in-alt"></i></a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>
